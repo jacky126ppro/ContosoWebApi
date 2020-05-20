@@ -52,6 +52,7 @@ namespace ContosoWebApi.Controllers
                 return BadRequest();
             }
 
+            person.DateModified = DateTime.Now;
             _context.Entry(person).State = EntityState.Modified;
 
             try
@@ -79,6 +80,7 @@ namespace ContosoWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Person>> PostPerson(Person person)
         {
+            person.DateModified = DateTime.Now;
             _context.Person.Add(person);
             await _context.SaveChangesAsync();
 

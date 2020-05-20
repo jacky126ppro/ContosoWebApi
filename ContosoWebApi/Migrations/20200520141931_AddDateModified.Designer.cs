@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContosoWebApi.Migrations
 {
     [DbContext(typeof(ContosouniversityContext))]
-    [Migration("20200518130948_init")]
-    partial class init
+    [Migration("20200520141931_AddDateModified")]
+    partial class AddDateModified
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,9 @@ namespace ContosoWebApi.Migrations
 
                     b.Property<int>("Credits")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("DepartmentId")
                         .ValueGeneratedOnAdd()
@@ -82,6 +85,9 @@ namespace ContosoWebApi.Migrations
 
                     b.Property<decimal>("Budget")
                         .HasColumnType("money");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("InstructorId")
                         .HasColumnName("InstructorID")
@@ -164,6 +170,9 @@ namespace ContosoWebApi.Migrations
                         .HasColumnName("ID")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()

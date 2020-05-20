@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContosoWebApi.Migrations
 {
     [DbContext(typeof(ContosouniversityContext))]
-    [Migration("20200518150144_timestamp")]
-    partial class timestamp
+    [Migration("20200520141155_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,9 @@ namespace ContosoWebApi.Migrations
 
                     b.Property<int>("Credits")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("DepartmentId")
                         .ValueGeneratedOnAdd()

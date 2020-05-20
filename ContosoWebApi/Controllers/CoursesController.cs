@@ -53,6 +53,7 @@ namespace ContosoWebApi.Controllers
             }
 
             _context.Entry(course).State = EntityState.Modified;
+            course.DateModified = DateTime.Now;
 
             try
             {
@@ -79,6 +80,7 @@ namespace ContosoWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
+            course.DateModified = DateTime.Now;
             _context.Course.Add(course);
             await _context.SaveChangesAsync();
 
