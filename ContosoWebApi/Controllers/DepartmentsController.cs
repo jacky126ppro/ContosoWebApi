@@ -25,7 +25,7 @@ namespace ContosoWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> GetDepartment()
         {
-            return await _context.Department.ToListAsync();
+            return await _context.Department.Where(a => a.IsDeleted != true).ToListAsync();
         }
 
         // GET: api/Departments/5
@@ -34,7 +34,7 @@ namespace ContosoWebApi.Controllers
         {
             var department = await _context.Department.FindAsync(id);
 
-            if (department == null)
+            if (department == null && department.IsDeleted != true)
             {
                 return NotFound();
             }
@@ -125,8 +125,8 @@ namespace ContosoWebApi.Controllers
             {
                 return NotFound();
             }
-
-            _context.Department.Remove(department);
+            department.IsDeleted = true;
+            _context.Department.Update(department);
             _context.SaveChanges();
             //#region Use stored procedure
             //SqlParameter departmentID = new SqlParameter("@DepartmentID", department.DepartmentId);

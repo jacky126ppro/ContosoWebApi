@@ -24,7 +24,7 @@ namespace ContosoWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourse()
         {
-            return await _context.Course.ToListAsync();
+            return await _context.Course.Where(a=>a.IsDeleted!=true).ToListAsync();
         }
 
         // GET: api/Courses/5
@@ -33,7 +33,7 @@ namespace ContosoWebApi.Controllers
         {
             var course = await _context.Course.FindAsync(id);
 
-            if (course == null)
+            if (course == null&&course.IsDeleted!=true)
             {
                 return NotFound();
             }
@@ -96,8 +96,8 @@ namespace ContosoWebApi.Controllers
             {
                 return NotFound();
             }
-
-            _context.Course.Remove(course);
+            course.IsDeleted = true;
+            _context.Course.Update(course);
             await _context.SaveChangesAsync();
 
             return course;

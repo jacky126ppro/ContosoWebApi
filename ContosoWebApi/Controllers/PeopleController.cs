@@ -24,7 +24,7 @@ namespace ContosoWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
         {
-            return await _context.Person.ToListAsync();
+            return await _context.Person.Where(a=>a.IsDeleted!=true).ToListAsync();
         }
 
         // GET: api/People/5
@@ -33,7 +33,7 @@ namespace ContosoWebApi.Controllers
         {
             var person = await _context.Person.FindAsync(id);
 
-            if (person == null)
+            if (person == null&&person.IsDeleted!=true)
             {
                 return NotFound();
             }
@@ -92,12 +92,13 @@ namespace ContosoWebApi.Controllers
         public async Task<ActionResult<Person>> DeletePerson(int id)
         {
             var person = await _context.Person.FindAsync(id);
-            if (person == null)
+            if (person == null )
             {
                 return NotFound();
             }
-
-            _context.Person.Remove(person);
+            person.IsDeleted = true;
+            _context.Person.Update(person);
+            //_context.Person.Remove(person);
             await _context.SaveChangesAsync();
 
             return person;
