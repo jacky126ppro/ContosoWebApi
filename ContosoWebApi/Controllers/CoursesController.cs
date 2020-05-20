@@ -105,5 +105,17 @@ namespace ContosoWebApi.Controllers
         {
             return _context.Course.Any(e => e.CourseId == id);
         }
+        [HttpGet("GetVwCourseStudents")]
+        public async Task<ActionResult<IEnumerable<VwCourseStudents>>> GetVwCourseStudents()
+        {
+            return await _context.VwCourseStudents.ToListAsync();
+        }
+
+        // GET: api/Courses/GetVwCourse
+        [HttpGet("GetVwCourse")]
+        public async Task<ActionResult<IEnumerable<VwCourseStudentCount>>> GetVwCourseStudentCouut()
+        {
+            return await _context.VwCourseStudentCount.ToListAsync();
+        }
     }
 }
