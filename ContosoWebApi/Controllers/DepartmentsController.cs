@@ -136,5 +136,11 @@ namespace ContosoWebApi.Controllers
         {
             return _context.Department.Any(e => e.DepartmentId == id);
         }
+
+        [HttpGet("GetDepartCount")]
+        public async Task<ActionResult<IEnumerable<VwDepartmentCourseCount>>> GetDepartCount()
+        {
+          return await _context.VwDepartmentCourseCount.FromSqlRaw("select * from VwDepartmentCourseCount").ToListAsync(); ;
+        }
     }
 }
